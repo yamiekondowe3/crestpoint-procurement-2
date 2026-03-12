@@ -1,0 +1,432 @@
+body{
+
+font-family: Arial, Helvetica, sans-serif;
+margin:0;
+background:#f4f6f8;
+
+}
+
+header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:20px 80px;
+
+background:white;
+
+}
+
+.logo img{
+
+height:60px;
+
+}
+
+nav a{
+
+margin-left:30px;
+text-decoration:none;
+color:#0b3c5d;
+font-weight:bold;
+
+}
+
+.hero{
+
+padding:120px 80px;
+background:#0b3c5d;
+color:white;
+
+}
+
+.hero h1{
+
+font-size:48px;
+
+}
+
+.cta{
+
+display:inline-block;
+margin-top:20px;
+padding:12px 30px;
+
+background:#2a8dbf;
+color:white;
+
+text-decoration:none;
+
+border-radius:6px;
+
+}
+
+.solutions{
+
+padding:80px;
+
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+
+gap:30px;
+
+}
+
+.card{
+
+background:white;
+
+padding:30px;
+
+border-radius:8px;
+
+box-shadow:0 5px 10px rgba(0,0,0,0.05);
+
+}
+
+.cta-section{
+
+background:#2a8dbf;
+color:white;
+
+text-align:center;
+
+padding:80px;
+
+}
+
+footer{
+
+text-align:center;
+
+padding:40px;
+
+background:#0b3c5d;
+
+color:white;
+
+}
+  
+  /* 1. Responsive Layout (Mobile Friendly) */
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr; 
+    }
+    header {
+      padding: 20px;
+      flex-direction: column;
+    }
+    nav a {
+      margin: 10px 0;
+    }
+    .hero {
+      padding: 60px 20px;
+    }
+    .hero h1 {
+      font-size: 32px;
+    }
+    .solutions {
+      padding: 40px 20px;
+    }
+    .cta-section {
+      padding: 40px 20px;
+    }
+    .product-grid {
+      grid-template-columns: 1fr;
+      padding: 40px 20px;
+    }
+    .solutions-grid {
+      grid-template-columns: 1fr;
+      padding: 40px 20px;
+    }
+    .contact-container {
+      grid-template-columns: 1fr;
+      padding: 40px 20px;
+      gap: 40px;
+    }
+    .form-section {
+      padding: 40px 20px;
+    }
+    form {
+      width: 100%;
+      max-width: 500px;
+    }
+    .page-title {
+      padding: 60px 20px;
+    }
+    .page-title h1 {
+      font-size: 32px;
+    }
+    .success-container {
+      padding: 60px 20px;
+    }
+    .success-container h1 {
+      font-size: 32px;
+    }
+    .success-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 {
+      font-size: 24px;
+    }
+    .page-title h1 {
+      font-size: 24px;
+    }
+    .success-container h1 {
+      font-size: 24px;
+    }
+    .logo img {
+      height: 40px;
+    }
+  }
+
+  /* 2. Interactive Hover Effect */
+  .cta:hover {
+    background: #1e6e96;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+product page css
+
+  .page-title{
+
+padding:80px;
+background:#f4f6f8;
+text-align:center;
+
+}
+
+.page-title h1{
+
+font-size:40px;
+margin-bottom:10px;
+
+}
+
+
+.product-grid{
+
+padding:80px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:40px;
+
+}
+
+
+.product-card{
+
+background:white;
+
+padding:40px;
+
+border-radius:10px;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+
+transition:transform 0.2s;
+
+}
+
+
+.product-card:hover{
+
+transform:translateY(-5px);
+
+}
+
+
+.product-card h3{
+
+color:#0b3c5d;
+
+margin-bottom:10px;
+
+}
+
+
+.product-btn{
+
+display:inline-block;
+
+margin-top:15px;
+
+padding:10px 20px;
+
+background:#2a8dbf;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:6px;
+
+}
+
+formstyling for enquiry
+
+.form-section{
+
+padding:80px;
+
+display:flex;
+
+justify-content:center;
+
+}
+
+form{
+
+width:500px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+background:white;
+
+padding:40px;
+
+border-radius:10px;
+
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+}
+
+form input,
+form select,
+form textarea{
+
+padding:12px;
+
+border:1px solid #ddd;
+
+border-radius:6px;
+
+font-size:14px;
+
+}
+
+form textarea{
+
+height:120px;
+
+}
+
+form button{
+
+background:#2a8dbf;
+
+color:white;
+
+border:none;
+
+padding:14px;
+
+font-size:16px;
+
+border-radius:6px;
+
+cursor:pointer;
+
+}
+
+solution page
+
+.solutions-grid{
+
+padding:80px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:40px;
+
+}
+
+
+.solution-card{
+
+background:white;
+
+padding:40px;
+
+border-radius:10px;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+
+transition:transform 0.2s;
+
+}
+
+.solution-card:hover{
+
+transform:translateY(-6px);
+
+}
+
+.solution-card h3{
+
+color:#0b3c5d;
+
+margin-bottom:15px;
+
+}
+
+contacts page
+
+.contact-container{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+padding:80px;
+
+gap:60px;
+
+}
+
+
+.contact-info h2{
+
+margin-top:20px;
+
+color:#0b3c5d;
+
+}
+
+
+.contact-form form{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+background:white;
+
+padding:40px;
+
+border-radius:10px;
+
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+
+}

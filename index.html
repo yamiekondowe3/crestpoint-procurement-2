@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CrestPoint Solutions</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div id="shared-header"></div>
+
+<section class="hero">
+
+<h1>Enterprise ICT Procurement Solutions</h1>
+
+<p>
+Providing advanced Huawei enterprise solutions for
+mining, industrial operations and business infrastructure.
+</p>
+
+<a class="cta" href="enquire.html">Request a Quote</a>
+
+</section>
+
+
+<section class="solutions">
+
+<h2>Our Solutions</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Enterprise Networking</h3>
+<p>Huawei CloudEngine switches and NetEngine routers.</p>
+</div>
+
+<div class="card">
+<h3>Smart Surveillance</h3>
+<p>AI powered security monitoring and threat detection.</p>
+</div>
+
+<div class="card">
+<h3>Mining ICT Systems</h3>
+<p>IoT monitoring systems for mining environments.</p>
+</div>
+
+<div class="card">
+<h3>Collaboration Systems</h3>
+<p>Video conferencing and Huawei IdeaHub solutions.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="cta-section">
+
+<h2>Need ICT equipment or infrastructure?</h2>
+
+<a class="cta" href="enquire.html">Send Procurement Request</a>
+
+</section>
+
+
+<footer>
+
+<p> 2026 CrestPoint Solutions</p>
+
+</footer>
+
+<script>
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Header not found');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('shared-header').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            // Fallback header content
+            document.getElementById('shared-header').innerHTML = `
+                <header>
+                    <div class="logo">
+                        <img src="images/logo.png" alt="CrestPoint Logo">
+                    </div>
+                    <nav>
+                        <a href="index.html">Home</a>
+                        <a href="solutions.html">Solutions</a>
+                        <a href="products.html">Products</a>
+                        <a href="enquire.html">Enquire</a>
+                        <a href="contact.html">Contact</a>
+                    </nav>
+                </header>
+            `;
+        });
+</script>
+
+</body>
+
+</html>

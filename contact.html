@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact | CrestPoint Solutions</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div id="shared-header"></div>
+
+<section class="page-title">
+
+<h1>Contact Us</h1>
+
+<p>Reach out to our team for enquiries and procurement requests.</p>
+
+</section>
+
+
+<section class="contact-container">
+
+
+<div class="contact-info">
+
+<h2>Office</h2>
+
+<p>
+29 Irvine Close<br>
+Marlborough<br>
+Harare, Zimbabwe
+</p>
+
+<h2>Phone</h2>
+
+<p>+263 713 102 492</p>
+
+<h2>Email</h2>
+
+<p>sales@crestpointsolutions.co.zw</p>
+
+<p>info@crestpointsolutions.co.zw</p>
+
+</div>
+
+
+<div class="contact-form">
+
+<form id="contactForm" action="/api/contact" method="POST">
+<input type="text" name="name" placeholder="Full Name" required>
+
+<input type="email" name="email" placeholder="Email Address" required>
+
+<textarea name="message" placeholder="Your Message"></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+</div>
+
+
+</section>
+
+
+<footer>
+
+<p> 2026 CrestPoint Solutions</p>
+
+</footer>
+
+<script>
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Header not found');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('shared-header').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            // Fallback header content
+            document.getElementById('shared-header').innerHTML = `
+                <header>
+                    <div class="logo">
+                        <img src="images/logo.png" alt="CrestPoint Logo">
+                    </div>
+                    <nav>
+                        <a href="index.html">Home</a>
+                        <a href="solutions.html">Solutions</a>
+                        <a href="products.html">Products</a>
+                        <a href="enquire.html">Enquire</a>
+                        <a href="contact.html">Contact</a>
+                    </nav>
+                </header>
+            `;
+        });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const nameInput = document.querySelector('input[name="name"]');
+    const emailInput = document.querySelector('input[name="email"]');
+    const messageInput = document.querySelector('textarea[name="message"]');
+    
+    // Create error message elements
+    function createErrorElement(input) {
+        const error = document.createElement('div');
+        error.className = 'error-message';
+        error.style.color = '#e74c3c';
+        error.style.fontSize = '12px';
+        error.style.marginTop = '5px';
+        error.style.display = 'none';
+        input.parentNode.appendChild(error);
+        return error;
+    }
+    
+    const nameError = createErrorElement(nameInput);
+    const emailError = createErrorElement(emailInput);
+    const messageError = createErrorElement(messageInput);
+    
+    // Validation functions
+    function validateName() {
+        const name = nameInput.value.trim();
+        if (name.length < 2) {
+            nameError.textContent = 'Name must be at least 2 characters';
+            nameError.style.display = 'block';
+            nameInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        nameError.style.display = 'none';
+        nameInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validateEmail() {
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            emailError.textContent = 'Please enter a valid email address';
+            emailError.style.display = 'block';
+            emailInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        emailError.style.display = 'none';
+        emailInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validateMessage() {
+        const message = messageInput.value.trim();
+        if (message.length < 10) {
+            messageError.textContent = 'Message must be at least 10 characters';
+            messageError.style.display = 'block';
+            messageInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        messageError.style.display = 'none';
+        messageInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    // Real-time validation
+    nameInput.addEventListener('blur', validateName);
+    emailInput.addEventListener('blur', validateEmail);
+    messageInput.addEventListener('blur', validateMessage);
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate all fields
+        const isNameValid = validateName();
+        const isEmailValid = validateEmail();
+        const isMessageValid = validateMessage();
+        
+        if (isNameValid && isEmailValid && isMessageValid) {
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Submit form via fetch API
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
+            
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Redirect to thank you page
+                    window.location.href = 'thank-you.html';
+                } else {
+                    // Show error message
+                    alert('Error: ' + result.message);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+    });
+});
+</script>
+
+</body>
+
+</html>

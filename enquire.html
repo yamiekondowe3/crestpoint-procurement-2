@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Product Enquiry | CrestPoint Solutions</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div id="shared-header"></div>
+
+<section class="page-title">
+
+<h1>Product Enquiry</h1>
+
+<p>Submit your procurement request and our team will respond.</p>
+
+</section>
+
+
+<section class="form-section">
+
+<form id="enquiryForm" action="/api/enquiry" method="POST">
+<input type="hidden" name="_subject" value="New Product Enquiry - CrestPoint Solutions">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_honey" value="" style="display:none">
+
+<input type="text" id="productField" name="name" placeholder="Full Name" required>
+
+<input type="text" id="productField" name="company" placeholder="Company Name" required>
+
+<input type="email" id="productField" name="email" placeholder="Email Address" required>
+
+<input type="tel" id="productField" name="phone" placeholder="Phone Number">
+
+
+<select name="product" required>
+
+<option value="">Select Product</option>
+
+<option>Huawei Router</option>
+<option>CloudEngine Switch</option>
+<option>Huawei IdeaHub</option>
+<option>Enterprise Server</option>
+<option>Security Camera System</option>
+<option>Huawei Laptop</option>
+
+</select>
+
+
+<input type="number" name="quantity" placeholder="Quantity">
+
+
+<textarea name="message" placeholder="Additional requirements"></textarea>
+
+
+<button type="submit">Send Enquiry</button>
+
+</form>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 CrestPoint Solutions</p>
+
+</footer>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const product = params.get("product");
+
+if(product){
+
+document.getElementById("productField").value = product;
+
+}
+
+</script>
+
+<script>
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Header not found');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('shared-header').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error loading header:', error);
+            // Fallback header content
+            document.getElementById('shared-header').innerHTML = `
+                <header>
+                    <div class="logo">
+                        <img src="images/logo.png" alt="CrestPoint Logo">
+                    </div>
+                    <nav>
+                        <a href="index.html">Home</a>
+                        <a href="solutions.html">Solutions</a>
+                        <a href="products.html">Products</a>
+                        <a href="enquire.html">Enquire</a>
+                        <a href="contact.html">Contact</a>
+                    </nav>
+                </header>
+            `;
+        });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const nameInput = document.querySelector('input[name="name"]');
+    const companyInput = document.querySelector('input[name="company"]');
+    const emailInput = document.querySelector('input[name="email"]');
+    const phoneInput = document.querySelector('input[name="phone"]');
+    const productSelect = document.querySelector('select[name="product"]');
+    const quantityInput = document.querySelector('input[name="quantity"]');
+    const messageInput = document.querySelector('textarea[name="message"]');
+    
+    // Create error message elements
+    function createErrorElement(input) {
+        const error = document.createElement('div');
+        error.className = 'error-message';
+        error.style.color = '#e74c3c';
+        error.style.fontSize = '12px';
+        error.style.marginTop = '5px';
+        error.style.display = 'none';
+        input.parentNode.appendChild(error);
+        return error;
+    }
+    
+    const nameError = createErrorElement(nameInput);
+    const companyError = createErrorElement(companyInput);
+    const emailError = createErrorElement(emailInput);
+    const phoneError = createErrorElement(phoneInput);
+    const productError = createErrorElement(productSelect);
+    const quantityError = createErrorElement(quantityInput);
+    const messageError = createErrorElement(messageInput);
+    
+    // Validation functions
+    function validateName() {
+        const name = nameInput.value.trim();
+        if (name.length < 2) {
+            nameError.textContent = 'Name must be at least 2 characters';
+            nameError.style.display = 'block';
+            nameInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        nameError.style.display = 'none';
+        nameInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validateCompany() {
+        const company = companyInput.value.trim();
+        if (company.length < 2) {
+            companyError.textContent = 'Company name must be at least 2 characters';
+            companyError.style.display = 'block';
+            companyInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        companyError.style.display = 'none';
+        companyInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validateEmail() {
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            emailError.textContent = 'Please enter a valid email address';
+            emailError.style.display = 'block';
+            emailInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        emailError.style.display = 'none';
+        emailInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validatePhone() {
+        const phone = phoneInput.value.trim();
+        if (phone && !/^\+?\d{10,15}$/.test(phone.replace(/\s/g, ''))) {
+            phoneError.textContent = 'Please enter a valid phone number';
+            phoneError.style.display = 'block';
+            phoneInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        phoneError.style.display = 'none';
+        phoneInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validateProduct() {
+        const product = productSelect.value;
+        if (!product) {
+            productError.textContent = 'Please select a product';
+            productError.style.display = 'block';
+            productSelect.style.borderColor = '#e74c3c';
+            return false;
+        }
+        productError.style.display = 'none';
+        productSelect.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validateQuantity() {
+        const quantity = quantityInput.value.trim();
+        if (quantity && (quantity < 1 || quantity > 1000)) {
+            quantityError.textContent = 'Quantity must be between 1 and 1000';
+            quantityError.style.display = 'block';
+            quantityInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        quantityError.style.display = 'none';
+        quantityInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    function validateMessage() {
+        const message = messageInput.value.trim();
+        if (message && message.length < 10) {
+            messageError.textContent = 'Message must be at least 10 characters if provided';
+            messageError.style.display = 'block';
+            messageInput.style.borderColor = '#e74c3c';
+            return false;
+        }
+        messageError.style.display = 'none';
+        messageInput.style.borderColor = '#ddd';
+        return true;
+    }
+    
+    // Real-time validation
+    nameInput.addEventListener('blur', validateName);
+    companyInput.addEventListener('blur', validateCompany);
+    emailInput.addEventListener('blur', validateEmail);
+    phoneInput.addEventListener('blur', validatePhone);
+    productSelect.addEventListener('change', validateProduct);
+    quantityInput.addEventListener('blur', validateQuantity);
+    messageInput.addEventListener('blur', validateMessage);
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate all fields
+        const isNameValid = validateName();
+        const isCompanyValid = validateCompany();
+        const isEmailValid = validateEmail();
+        const isPhoneValid = validatePhone();
+        const isProductValid = validateProduct();
+        const isQuantityValid = validateQuantity();
+        const isMessageValid = validateMessage();
+        
+        if (isNameValid && isCompanyValid && isEmailValid && isPhoneValid && isProductValid && isQuantityValid && isMessageValid) {
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Submit form via fetch API
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                company: formData.get('company'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                product: formData.get('product'),
+                quantity: formData.get('quantity'),
+                message: formData.get('message')
+            };
+            
+            fetch('/api/enquiry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Redirect to thank you page
+                    window.location.href = 'thank-you.html';
+                } else {
+                    // Show error message
+                    alert('Error: ' + result.message);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+    });
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | CrestPoint Solutions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .success-container {
+            text-align: center;
+            padding: 120px 80px;
+            background: #f4f6f8;
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #27ae60;
+            margin-bottom: 30px;
+        }
+        .success-container h1 {
+            color: #0b3c5d;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .success-container p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .success-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #2a8dbf;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #1e6e96;
+        }
+        .btn-secondary {
+            background: #0b3c5d;
+        }
+        .btn-secondary:hover {
+            background: #082941;
+        }
+    </style>
+</head>
+<body>
+    <div id="shared-header"></div>
+    
+    <section class="success-container">
+        <div class="success-icon">✓</div>
+        <h1>Thank You!</h1>
+        <p>Your message has been successfully sent. Our team will review your enquiry and get back to you within 24 hours.</p>
+        
+        <div class="success-actions">
+            <a href="index.html" class="btn">Return Home</a>
+            <a href="products.html" class="btn btn-secondary">Browse Products</a>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2026 CrestPoint Solutions</p>
+    </footer>
+    
+    <script>
+        fetch('header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Header not found');
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('shared-header').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                // Fallback header content
+                document.getElementById('shared-header').innerHTML = `
+                    <header>
+                        <div class="logo">
+                            <img src="images/logo.png" alt="CrestPoint Logo">
+                        </div>
+                        <nav>
+                            <a href="index.html">Home</a>
+                            <a href="solutions.html">Solutions</a>
+                            <a href="products.html">Products</a>
+                            <a href="enquire.html">Enquire</a>
+                            <a href="contact.html">Contact</a>
+                        </nav>
+                    </header>
+                `;
+            });
+    </script>
+</body>
+</html>
