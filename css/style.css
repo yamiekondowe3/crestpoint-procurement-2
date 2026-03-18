@@ -19,6 +19,7 @@ header {
   padding: 20px 80px;
   background: white;
   position: relative;
+  z-index: 200;
 }
 
 .logo img {
@@ -30,9 +31,14 @@ nav a {
   text-decoration: none;
   color: #0b3c5d;
   font-weight: bold;
+  transition: color 0.2s;
 }
 
-/* Hamburger button — hidden on desktop */
+nav a:hover {
+  color: #2a8dbf;
+}
+
+/* Hamburger — hidden on desktop */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -43,7 +49,7 @@ nav a {
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 100;
+  z-index: 300;
 }
 
 .hamburger span {
@@ -55,44 +61,64 @@ nav a {
   transition: all 0.3s ease;
 }
 
-/* Animate hamburger → X when open */
-.hamburger.active span:nth-child(1) {
-  transform: translateY(8.5px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-8.5px) rotate(-45deg);
-}
+.hamburger.active span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
 
 /* =====================
-   HERO
+   HERO — dark overlay
    ===================== */
 
 .hero {
-  padding: 120px 80px;
-  background: #0b3c5d;
+  position: relative;
+  padding: 140px 80px;
+  background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80');
+  background-size: cover;
+  background-position: center;
   color: white;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11,60,93,0.88) 0%, rgba(11,60,93,0.65) 100%);
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
 }
 
 .hero h1 {
   font-size: 48px;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 8px;
 }
 
 .cta {
   display: inline-block;
   margin-top: 20px;
-  padding: 12px 30px;
+  padding: 14px 34px;
   background: #2a8dbf;
   color: white;
   text-decoration: none;
   border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .cta:hover {
   background: #1e6e96;
-  transition: 0.3s;
+  transform: translateY(-2px);
   cursor: pointer;
 }
 
@@ -104,6 +130,12 @@ nav a {
   padding: 80px;
 }
 
+.solutions h2 {
+  font-size: 32px;
+  color: #0b3c5d;
+  margin-bottom: 40px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -112,9 +144,58 @@ nav a {
 
 .card {
   background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  padding: 36px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+.card h3 {
+  color: #0b3c5d;
+  margin-bottom: 10px;
+}
+
+/* =====================
+   STATS STRIP
+   ===================== */
+
+.stats-strip {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #0b3c5d;
+  color: white;
+  padding: 50px 80px;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 42px;
+  font-weight: bold;
+  color: #2a8dbf;
+}
+
+.stat-label {
+  font-size: 14px;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 /* =====================
@@ -126,6 +207,10 @@ nav a {
   color: white;
   text-align: center;
   padding: 80px;
+}
+
+.cta-section h2 {
+  margin-bottom: 8px;
 }
 
 /* =====================
@@ -145,7 +230,8 @@ footer {
 
 .page-title {
   padding: 80px;
-  background: #f4f6f8;
+  background: #0b3c5d;
+  color: white;
   text-align: center;
 }
 
@@ -154,8 +240,13 @@ footer {
   margin-bottom: 10px;
 }
 
+.page-title p {
+  opacity: 0.85;
+  font-size: 16px;
+}
+
 .product-grid {
-  padding: 80px;
+  padding: 60px 80px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
@@ -163,30 +254,94 @@ footer {
 
 .product-card {
   background: white;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.13);
 }
 
-.product-card h3 {
+.product-img-wrap {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.08);
+}
+
+.product-card-body {
+  padding: 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card-body h3 {
   color: #0b3c5d;
   margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.product-card-body p {
+  color: #555;
+  flex: 1;
+  margin-bottom: 16px;
+  line-height: 1.5;
 }
 
 .product-btn {
   display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   background: #2a8dbf;
   color: white;
   text-decoration: none;
   border-radius: 6px;
+  font-weight: bold;
+  align-self: flex-start;
+  transition: background 0.3s, transform 0.2s;
 }
+
+.product-btn:hover {
+  background: #1e6e96;
+  transform: translateY(-2px);
+}
+
+/* =====================
+   FADE-IN ANIMATION
+   ===================== */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in:nth-child(2) { transition-delay: 0.1s; }
+.fade-in:nth-child(3) { transition-delay: 0.2s; }
+.fade-in:nth-child(4) { transition-delay: 0.3s; }
+.fade-in:nth-child(5) { transition-delay: 0.15s; }
+.fade-in:nth-child(6) { transition-delay: 0.25s; }
 
 /* =====================
    ENQUIRY FORM
@@ -230,6 +385,11 @@ form button {
   font-size: 16px;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background: #1e6e96;
 }
 
 /* =====================
@@ -308,7 +468,6 @@ form button {
 
 @media (max-width: 768px) {
 
-  /* Header: show hamburger, hide/collapse nav */
   header {
     padding: 20px 24px;
     flex-wrap: wrap;
@@ -325,7 +484,7 @@ form button {
     background: white;
     padding: 16px 0 8px;
     border-top: 1px solid #e8ecf0;
-    order: 3; /* pushes nav below logo + hamburger row */
+    order: 3;
   }
 
   nav.open {
@@ -343,13 +502,17 @@ form button {
     border-bottom: none;
   }
 
-  /* Layout */
   .hero {
-    padding: 60px 24px;
+    padding: 80px 24px;
+    background-attachment: scroll;
   }
 
   .hero h1 {
     font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 16px;
   }
 
   .grid {
@@ -362,6 +525,15 @@ form button {
 
   .cta-section {
     padding: 40px 24px;
+  }
+
+  .stats-strip {
+    padding: 40px 24px;
+    gap: 24px;
+  }
+
+  .stat-number {
+    font-size: 32px;
   }
 
   .product-grid {
@@ -425,13 +597,20 @@ form button {
     font-size: 26px;
   }
 
+  .hero p {
+    font-size: 15px;
+  }
+
   .page-title h1,
   .success-container h1 {
     font-size: 24px;
   }
 
+  .product-img-wrap {
+    height: 180px;
+  }
+
   .card,
-  .product-card,
   .solution-card {
     padding: 24px;
   }

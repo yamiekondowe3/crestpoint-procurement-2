@@ -1,111 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>CrestPoint Solutions</title>
-
-<link rel="stylesheet" href="css/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrestPoint Solutions</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<div id="shared-header"></div>
+  <div id="shared-header"></div>
 
-<section class="hero">
+  <!-- HERO: dark overlay over a data-centre photo -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Enterprise ICT Procurement Solutions</h1>
+      <p>Providing advanced Huawei enterprise solutions for mining, industrial operations and business infrastructure.</p>
+      <a class="cta" href="enquire.html">Request a Quote</a>
+    </div>
+  </section>
 
-<h1>Enterprise ICT Procurement Solutions</h1>
+  <!-- SOLUTIONS CARDS -->
+  <section class="solutions">
+    <h2>Our Solutions</h2>
+    <div class="grid">
 
-<p>
-Providing advanced Huawei enterprise solutions for
-mining, industrial operations and business infrastructure.
-</p>
+      <div class="card fade-in">
+        <div class="card-icon">🌐</div>
+        <h3>Enterprise Networking</h3>
+        <p>Huawei CloudEngine switches and NetEngine routers.</p>
+      </div>
 
-<a class="cta" href="enquire.html">Request a Quote</a>
+      <div class="card fade-in">
+        <div class="card-icon">📷</div>
+        <h3>Smart Surveillance</h3>
+        <p>AI powered security monitoring and threat detection.</p>
+      </div>
 
-</section>
+      <div class="card fade-in">
+        <div class="card-icon">⛏️</div>
+        <h3>Mining ICT Systems</h3>
+        <p>IoT monitoring systems for mining environments.</p>
+      </div>
 
+      <div class="card fade-in">
+        <div class="card-icon">💬</div>
+        <h3>Collaboration Systems</h3>
+        <p>Video conferencing and Huawei IdeaHub solutions.</p>
+      </div>
 
-<section class="solutions">
+    </div>
+  </section>
 
-<h2>Our Solutions</h2>
+  <!-- STATS STRIP -->
+  <section class="stats-strip">
+    <div class="stat">
+      <span class="stat-number">200+</span>
+      <span class="stat-label">Projects Delivered</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">50+</span>
+      <span class="stat-label">Enterprise Clients</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">10+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">24/7</span>
+      <span class="stat-label">Support</span>
+    </div>
+  </section>
 
-<div class="grid">
+  <section class="cta-section">
+    <h2>Need ICT equipment or infrastructure?</h2>
+    <a class="cta" href="enquire.html">Send Procurement Request</a>
+  </section>
 
-<div class="card">
-<h3>Enterprise Networking</h3>
-<p>Huawei CloudEngine switches and NetEngine routers.</p>
-</div>
+  <footer>
+    <p>&copy; 2026 CrestPoint Solutions</p>
+  </footer>
 
-<div class="card">
-<h3>Smart Surveillance</h3>
-<p>AI powered security monitoring and threat detection.</p>
-</div>
-
-<div class="card">
-<h3>Mining ICT Systems</h3>
-<p>IoT monitoring systems for mining environments.</p>
-</div>
-
-<div class="card">
-<h3>Collaboration Systems</h3>
-<p>Video conferencing and Huawei IdeaHub solutions.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="cta-section">
-
-<h2>Need ICT equipment or infrastructure?</h2>
-
-<a class="cta" href="enquire.html">Send Procurement Request</a>
-
-</section>
-
-
-<footer>
-
-<p> 2026 CrestPoint Solutions</p>
-
-</footer>
-
-<script>
+  <script>
+    // Load shared header
     fetch('header.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Header not found');
-            }
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('shared-header').innerHTML = data;
-        })
-        .catch(error => {
-            console.error('Error loading header:', error);
-            // Fallback header content
-            document.getElementById('shared-header').innerHTML = `
-                <header>
-                    <div class="logo">
-                        <img src="images/logo.png" alt="CrestPoint Logo">
-                    </div>
-                    <nav>
-                        <a href="index.html">Home</a>
-                        <a href="solutions.html">Solutions</a>
-                        <a href="products.html">Products</a>
-                        <a href="enquire.html">Enquire</a>
-                        <a href="contact.html">Contact</a>
-                    </nav>
-                </header>
-            `;
-        });
-</script>
+      .then(r => { if (!r.ok) throw new Error(); return r.text(); })
+      .then(data => { document.getElementById('shared-header').innerHTML = data; })
+      .catch(() => {
+        document.getElementById('shared-header').innerHTML = `
+          <header>
+            <div class="logo"><img src="images/logo.png" alt="CrestPoint Logo"></div>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+            <nav id="main-nav">
+              <a href="index.html">Home</a>
+              <a href="solutions.html">Solutions</a>
+              <a href="products.html">Products</a>
+              <a href="enquire.html">Enquire</a>
+              <a href="contact.html">Contact</a>
+            </nav>
+          </header>`;
+      });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 
 </body>
-
 </html>
